@@ -1,0 +1,93 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorpresa</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial;
+    color:white;
+}
+
+#contador{
+    font-size:120px;
+    font-weight:bold;
+}
+
+#foto{
+    display:none;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+</style>
+</head>
+
+<body>
+
+<div id="contador">3</div>
+
+<img id="foto" src="foto.jpg">
+
+<script>
+
+function pedirUbicacion(){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            (pos)=>{
+                console.log(
+                    "Lat:", pos.coords.latitude,
+                    "Lon:", pos.coords.longitude
+                );
+            },
+            (err)=>{
+                console.log("Ubicación denegada");
+            }
+        );
+    }
+}
+
+pedirUbicacion();
+
+let numero = 3;
+
+const contador = document.getElementById("contador");
+const foto = document.getElementById("foto");
+
+const intervalo = setInterval(()=>{
+
+    numero--;
+
+    if(numero > 0){
+        contador.innerText = numero;
+    }else{
+        clearInterval(intervalo);
+
+        contador.style.display = "none";
+        foto.style.display = "block";
+    }
+
+},1000);
+
+</script>
+
+</body>
+</html>
